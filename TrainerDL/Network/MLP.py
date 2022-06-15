@@ -2,9 +2,9 @@
 
 import torch
 
-class MultiLayerPerceptron(torch.nn.Module):
+class MLP(torch.nn.Module):
 
-    """ Custom MLP """
+    """ Basic configurable MLP """
 
     def __init__(self, n_inputs : int = 32, n_outputs : int = 64, n_hidden : int = 3, shape : float = 1.0, dropoutRate : float = 0.75):
 
