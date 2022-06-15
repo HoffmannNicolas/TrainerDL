@@ -12,7 +12,7 @@ class MLP(torch.nn.Module):
         <n_inputs> : Number of input features.
         <n_outputs> : Number of output features.
         <n_hidden> : Number of hidden self.layers, output layer not included.
-        <shape> : With of the middle layer, as a proportion of (<n_inputs> + <n_outputs>) : 0.5 looks like an autoencoder, 2 expands then retracts.
+        <shape> : Width of the middle layer, as a proportion of (<n_inputs> + <n_outputs>) : 0.5 looks like an autoencoder, 2 expands then retracts.
 
         Example of networks :
                             n_inputs = 12            n_inputs = 12           n_inputs = 4
