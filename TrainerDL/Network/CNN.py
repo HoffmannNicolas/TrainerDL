@@ -156,6 +156,18 @@ class FeatureExtractor(torch.nn.Module) :
         return toPrint
 
 
+    @classmethod
+    def sample(cls, trial, width=128, height=128, n_channels=3, n_convFeatures=128) :
+        return cls(
+            width=width,
+            height=height,
+            n_channels=n_channels,
+            n_convPerBlock=trial.suggest_int("CNN_n_convPerBlock", 1, 5),
+            n_convBlocks=trial.suggest_int("CNN_n_convBlocks", 1, 8),
+            n_convFeatures=n_convFeatures
+        )
+
+
 class CNN(torch.nn.Module):
 
     """ Basic configurable CNN """
@@ -245,3 +257,20 @@ class CNN(torch.nn.Module):
         toPrint += "\t" * (n_tab + 1) + self.featureExtractor.__str__(n_tab=n_tab + 1)
         toPrint += self.mlp.__str__()
         return toPrint
+
+    @classmethod
+    def sample(cls, trial, width=128, height=128, n_channels=3, n_outputs=64) :
+        return cls(
+            width=width,
+            height=height,
+            n_channels=n_channels,
+            n_convPerBlock=trial.suggest_int("CNN_n_convPerBlock", 1, 5),
+            n_convBlocks=trial.suggest_int("CNN_n_convBlocks", 1, 8),
+            n_convFeatures=trial.suggest_int("CNN_n_convFeatures", 16, 1024, log=True),
+            # isFullyConvolutionnal=trial.suggest_bool("CNN_isFullyConvolutionnal"),
+            # isResidual=trial.suggest_bool("CNN_isResidual"),
+            n_outputs=n_outputs,
+            n_hidden=trial.suggest_int("CNN_n_hidden", 1, 16, log=True),
+            shape=trial.suggest_float("CNN_shape", 0.1, 10, log=True),
+            dropoutRate=trial.suggest_float("CNN_dropoutRate", 0.1, 1, log=True)
+        )

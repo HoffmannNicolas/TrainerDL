@@ -4,8 +4,9 @@ import sys
 # Adds higher directory to python modules path.
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
-from TrainerDL.Network.CNN import ConvolutionnalBlock, CNN, ReshapeCNN
+from TrainerDL.Network.CNN import ConvolutionnalBlock, FeatureExtractor, CNN, ReshapeCNN
 import random
+import optuna
 
 print("Test convblock")
 convBlock = ConvolutionnalBlock(prior_n_channels=3, posterior_n_channels=6, n_convolutions=2, poolingKernel=(2, 2))
@@ -25,6 +26,16 @@ batch = reshape.generateRandomBatch()
 print(batch.shape)
 res = reshape(batch)
 print(res.shape)
+
+
+print("\n\nTest Feature extractor Sampling")
+study = optuna.create_study(direction='minimize')
+def objective(trial) :
+    fe = FeatureExtractor.sample(trial)
+    # print(fe)
+    return fe.n_convBlocks
+study.optimize(objective, n_trials=3)
+
 
 print("\n\nTest CNN")
 cnn = CNN(
@@ -46,3 +57,12 @@ print(f"First element of batch : {batch[0]}")
 results = cnn(batch)
 print(f"Results.shape = {results.shape}")
 print(f"First result : {results[0]}")
+
+
+print("\n\nTest Sampling")
+study = optuna.create_study(direction='minimize')
+def objective(trial) :
+    cnn = CNN.sample(trial)
+    # print(cnn)
+    return cnn.shape
+study.optimize(objective, n_trials=3)

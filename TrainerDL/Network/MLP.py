@@ -99,3 +99,14 @@ class MLP(torch.nn.Module):
         toPrint += _displayLayer(self.n_outputs, maxSize)
         toPrint += "Output"
         return toPrint
+
+
+    @classmethod
+    def sample(cls, trial, n_inputs=32, n_outputs=32) :
+        return cls(
+            n_inputs=n_inputs,
+            n_outputs=n_outputs,
+            n_hidden=trial.suggest_int("MLP_n_hidden", 1, 16, log=True),
+            shape=trial.suggest_float("MLP_shape", 0.1, 10, log=True),
+            dropoutRate=trial.suggest_float("MLP_dropoutRate", 0.1, 1, log=True)
+        )

@@ -6,6 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.
 
 from TrainerDL.Network.MLP import MLP
 import random
+import optuna
 
 for _ in range(5) :
     shape = random.uniform(0.1, 10)
@@ -23,3 +24,11 @@ print(f"First element of batch : {batch[0]}")
 results = mlp(batch)
 print(f"Results.shape = {results.shape}")
 print(f"First result : {results[0]}")
+
+print("\n\nTest Sampling")
+study = optuna.create_study(direction='minimize')
+def objective(trial) :
+    mlp = MLP.sample(trial)
+    # print(mlp)
+    return mlp.shape
+study.optimize(objective, n_trials=3)
