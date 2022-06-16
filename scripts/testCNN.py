@@ -21,6 +21,11 @@ print(reshape)
 res = reshape(res)
 print(res.shape)
 
+batch = reshape.generateRandomBatch()
+print(batch.shape)
+res = reshape(batch)
+print(res.shape)
+
 print("\n\nTest CNN")
 cnn = CNN(
         width=8,

@@ -65,6 +65,11 @@ class ReshapeCNN(torch.nn.Module):
 
         super().__init__()
 
+        self.width = width
+        self.height = height
+        self.n_channels = n_channels
+        self.n_outputs = n_outputs
+
         self.layers = []
         self.layers.append(torch.nn.Conv2d(
             in_channels=n_channels,
@@ -79,6 +84,15 @@ class ReshapeCNN(torch.nn.Module):
             x = layer(x)
 
         return x
+
+
+    def generateRandomBatch(self, batchSize=8) :
+        return torch.rand(
+            batchSize,
+            self.n_channels,
+            self.width,
+            self.height
+        )
 
 
     def __str__(self, n_tab=0) :
