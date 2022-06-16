@@ -40,7 +40,7 @@ class ConvolutionnalBlock(torch.nn.Module):
         return x
 
 
-    def generateFakeBatch(self, batchSize=8) :
+    def generateRandomBatch(self, batchSize=8) :
         return torch.rand(
             batchSize,
             self.prior_n_channels,
@@ -222,7 +222,7 @@ class CNN(torch.nn.Module):
         return predictions
 
 
-    def generateFakeBatch(self, batchSize=8) :
+    def generateRandomBatch(self, batchSize=8) :
         return torch.rand(batchSize, self.n_channels, self.width, self.height)
 
 

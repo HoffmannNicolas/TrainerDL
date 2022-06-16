@@ -10,7 +10,7 @@ import random
 print("Test convblock")
 convBlock = ConvolutionnalBlock(prior_n_channels=3, posterior_n_channels=6, n_convolutions=2, poolingKernel=(2, 2))
 print(convBlock)
-batch = convBlock.generateFakeBatch()
+batch = convBlock.generateRandomBatch()
 print(batch.shape)
 res = convBlock(batch)
 print(res.shape)
@@ -35,7 +35,7 @@ cnn = CNN(
         dropoutRate=0.5
 )
 print(cnn)
-batch = cnn.generateFakeBatch()
+batch = cnn.generateRandomBatch()
 print(f"Batch.shape : {batch.shape}")
 print(f"First element of batch : {batch[0]}")
 results = cnn(batch)
