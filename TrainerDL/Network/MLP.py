@@ -55,9 +55,12 @@ class MLP(torch.nn.Module):
         self.layers.append(torch.nn.Dropout(p=dropoutRate))
         self.layers.append(torch.nn.ReLU())
 
+        # Make all layers visible to optimizer with model.parameters()
+        self.layers = torch.nn.ModuleList(self.layers)
+
     def forward(self, inputBatch):
         result = inputBatch
-        for layer in self.layers :
+        for layer in self.layers:
             result = layer(result)
         return result
 

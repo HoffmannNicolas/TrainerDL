@@ -34,6 +34,10 @@ class ConvolutionnalBlock(torch.nn.Module):
             ceil_mode=True
         ))
 
+        # Make all layers visible to optimizer with model.parameters()
+        self.layers = torch.nn.ModuleList(self.layers)
+
+
     def forward(self, x) :
         for layer in self.layers :
             x = layer(x)
