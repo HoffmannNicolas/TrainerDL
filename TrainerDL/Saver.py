@@ -9,7 +9,7 @@ import math
 
 import matplotlib.pyplot as plt
 
-from Network.MLP import MLP
+from TrainerDL.Network.MLP import MLP
 
 class Saver :
 
